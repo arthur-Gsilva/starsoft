@@ -1,10 +1,11 @@
 'use client'
 
-import { products } from "@/data/products"
+
 import { FaArrowLeftLong } from "react-icons/fa6"
 import { SidebarItem } from "./SidebarItem"
 import Image from "next/image"
 import { Button } from "../Button"
+import { useAppSelector } from "@/store"
 
 type Props = {
     opened: boolean
@@ -12,6 +13,10 @@ type Props = {
 }
 
 export const Sidebar = ({ opened, setOpened }: Props) => {
+
+    const products = useAppSelector(state => state.cart.cart)
+    const total = products.reduce((acc, cartItem) => acc + cartItem.item.price * cartItem.quantity, 0)
+
     return (
         <>
             <div
@@ -25,7 +30,7 @@ export const Sidebar = ({ opened, setOpened }: Props) => {
 
             <aside
                 className={`
-                    fixed top-0 right-0 h-full w-1/2 max-w-xl
+                    fixed top-0 right-0 h-full w-1/2 max-w-xl pb-6
                     bg-[#232323] z-50 shadow-2xl
                     px-8 pt-16 flex flex-col
                     transform transition-transform duration-300 ease-in-out
@@ -48,30 +53,38 @@ export const Sidebar = ({ opened, setOpened }: Props) => {
                 <div className="flex flex-col gap-4 flex-1 overflow-y-auto mt-12 custom-scroll">
                     {products.map((product) => (
                         <SidebarItem
-                            key={product.id}
+                            key={product.item.id}
                             product={product}
                         />
                     ))}
+
+                    {products.length === 0 && <div className="text-center font-bold text-xl">Carrinho vazio!</div>}
                 </div>
 
-                <div className="flex justify-between items-center my-8 text-xl font-bold">
-                    <h6>Total</h6>
+                {products.length > 0 &&
+                <>
+                    <div className="flex justify-between items-center my-8 text-xl font-bold">
+                        <h6>Total</h6>
 
-                    <div className="flex items-center gap-2">
-                        <Image
-                            src="/products/coin.png"
-                            alt="moeda"
-                            height={10}
-                            width={20}
-                        />
-                        77 ETH
+                        <div className="flex items-center gap-2">
+                            <Image
+                                src="/products/coin.png"
+                                alt="moeda"
+                                height={10}
+                                width={20}
+                            />
+                            {total} ETH
+                        </div>
                     </div>
-                </div>
 
-                <Button
-                    onClick={() => console.log('clicou')}
-                    label="Finalizar compra!"
-                />
+                    <Button
+                        onClick={() => alert('Compra confirmada')}
+                        label="Finalizar compra!"
+                    />
+                </>
+                }
+
+                
             </aside>
         </>
     )

@@ -3,10 +3,13 @@
 import Image from "next/image"
 import { useState } from "react"
 import { Sidebar } from "./sidebar/Sidebar"
+import { useAppSelector } from "@/store"
 
 export const NavbarOpener = () => {
 
     const [open, setOpen] = useState<boolean>(false)
+
+    const products = useAppSelector(state => state.cart.cart)
 
     return(
         <>
@@ -21,7 +24,7 @@ export const NavbarOpener = () => {
                     height={30}
                 />
                 <div>
-                    0
+                    {products.length}
                 </div>
             </div>
 
