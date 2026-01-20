@@ -1,15 +1,19 @@
 import { ItemCard } from "@/components/ItemCard"
 import { Product } from "@/types/product"
+import { headers } from "next/headers"
 
 const page = async () => {
+    const headersList = headers()
+    const host = (await headersList).get('host')
 
-    const res = await fetch(`${process.env.API_BASE_URL}/api/products`, {
-        cache: 'force-cache'
+    const protocol =
+        process.env.NODE_ENV === 'development' ? 'http' : 'https'
+
+    const res = await fetch(`${protocol}://${host}/api/products`, {
+        cache: 'no-store',
     })
 
-    const data = await res.json()
-
-    const products: Product[] = data.products
+    const products: Product[] = await res.json()
 
     if (!Array.isArray(products)) {
         return null

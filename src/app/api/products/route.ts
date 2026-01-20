@@ -1,18 +1,14 @@
-import pool from '@/services/db';
-import { NextResponse } from 'next/server';
+import { supabase } from '@/services/supabase'
+import { NextResponse } from 'next/server'
 
-export async function GET(){
-    try{
-        const products = await pool.query(`SELECT * FROM product`)
+export async function GET() {
+  const { data, error } = await supabase
+    .from('product')
+    .select('*')
 
-        return NextResponse.json({
-            products: products.rows,
-        })
-    } catch(error){
-        console.error(error)
-        return NextResponse.json(
-            { msg: "Erro ao buscar produtos" },
-            {status: 500},
-        )
-    }
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  return NextResponse.json(data)
 }
