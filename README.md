@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#  Starsoft E-commerce
 
-## Getting Started
+Projeto de e-commerce desenvolvido com **Next.js (App Router)**, utilizando **Supabase** como backend e **Redux Toolkit** para gerenciamento do carrinho de compras.
 
-First, run the development server:
+---
+
+## Link para o projeto no ar:
+
+https://starsoft-nwqu.vercel.app/
+
+## 🚀 Tecnologias
+
+- Next.js (App Router)
+- React
+- TypeScript
+- Supabase
+- Redux Toolkit
+- Framer Motion
+- Tailwind CSS
+- React Icons
+
+---
+
+## ✨ Funcionalidades
+
+- Listagem de produtos
+- Modal com detalhes do produto
+- Carrinho de compras com controle de quantidade
+- Animações de UI
+- Integração com Supabase via API
+
+---
+
+## como rodar localmente
+
+###  **1. Clonar o Repositório**
+```bash
+git clone https://github.com/arthur-Gsilva/starsoft.git
+cd hous-e
+```
+
+###  **2. Configurar o Banco**
+Tabela `product`:
+
+```sql
+CREATE TABLE product (
+	id INT PRIMARY KEY,
+	name varchar(40) NOT NULL,
+	price INT NOT NULL,
+	image varchar(50),
+	description varchar(100)
+);
+```
+
+###  **3. Instalar dependências**
+
+```bash
+npm install
+```
+
+### **4. Configurar as Variáveis de Ambiente**
+#### Crie um arquivo .env em cada pasta (server e client) e adicione as seguintes variáveis:
+
+📦 .env do Backend (server/.env)
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=sua_service_role_key
+```
+
+###  **5. Rodar o projeto**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
